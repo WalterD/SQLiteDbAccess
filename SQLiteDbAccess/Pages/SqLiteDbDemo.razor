@@ -1,0 +1,113 @@
+﻿@page "/SqLiteDbDemo"
+
+<h3>SqLite Db Demo</h3>
+
+
+    @if (users != null && users.Count > 0)
+    {
+        <div class="row mt-4">
+            <div class="col text-center">
+                Users
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>UserID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in users)
+                        {
+                            <tr>
+                                <td>@user.UserID</td>
+                                <td>@user.FirstName</td>
+                                <td>@user.LastName</td>
+                                <td>@user.Email</td>
+                                <td>
+                                    <button @onclick="() => OnEditClick(user.UserID)"
+                                            class="btn btn-outline-success btn-sm">
+                                            Edit
+                                    </button>
+                                    <button @onclick="() => OnDeleteClick(user.UserID)"
+                                        class="btn btn-outline-danger btn-sm">
+                                            Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" class="text-center">
+                                Record count: @users.Count
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col">
+            <button @onclick="NewUserClick"
+                    class="btn btn-primary">New User</button>
+        </div>
+    </div>
+
+    @if (user != null)
+    {
+        <div class="row mt-4">
+            <div class="col text-center">
+                <strong>
+                    User ID: @user.UserID
+                </strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">First Name</div>
+            <div class="col">
+                <input @bind="user.FirstName"
+                        type="text"
+                        class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">Last Name</div>
+            <div class="col">
+                <input @bind="user.LastName"
+                        type="text"
+                        class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">Email</div>
+            <div class="col">
+                <input @bind="user.Email"
+                        type="text"
+                        class="form-control" />
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col text-center">
+                <button @onclick="OnUpdateUserClickAsync"
+                        class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    }
+
+    <div class="row mt-4">
+        <div class="col">
+            <pre>@sb.ToString()</pre>
+        </div>
+    </div>
+
+
